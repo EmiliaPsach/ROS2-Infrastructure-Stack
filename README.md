@@ -10,7 +10,12 @@ Robotics software infrastructure for a ROS2 test environment
 
 This repository has the following packages in the `src` directory:
 
-TODO: update list as I add packages to this repo
+1. **clock_pose_issuer**
+    - Converts clock time to 6D poses on unit circle
+1. **gui_pose_issuer**
+    - GUI for user-desire manual 6D pose commands with an option for spacebar reset
+1. **motion_controller**
+    - Converts target poses to velocity commands
 
 ### Adding additional packages
 
@@ -26,5 +31,6 @@ TODO: insert diagram here
 
 | Node | Publishes (topics) | Subscribes (topics) |
 | --- | --- | --- |
-
-TODO: fill out table here
+| clock_pose_issuer | `/target_pose_clock` | |
+| gui_pose_issuer | `/target_pose_gui` | |
+| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/current_pose` |
