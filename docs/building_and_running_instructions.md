@@ -16,4 +16,23 @@ In a Terminal:
 
 ## 2. Running instructions
 
-TODO: make script later to launch nodes
+This repository flexibly enables a wide variety of launch modes for its ROS2 packages in `generate_launch_system.py`.
+
+### Argument Table
+
+Users can enable 0+ of these modes in combination:
+
+| Argument | Default | Description |
+| --- | --- | --- |
+| `headless` | `false` | Disable GUI-based pose/setpoint input |
+| `sim` | `false` | Enable simulation mode |
+| `testing` | `false` | Enable testing mode |
+| `robot_name` | *(none)* | Set the robot namespace or name |
+
+If none of the optional flags are passed, then the default behavior is to enable all nodes.
+
+### Example launch configurations
+
+- **Default**: `ros2 launch src/robot_launch_system.py`
+- **Headless simulation**: `ros2 launch src/robot_launch_system.py headless:=true sim:=true`
+- **Testing mode with robot named test_bot**: `ros2 launch src/robot_launch_system.py testing:=true robot_name:=test_bot`
