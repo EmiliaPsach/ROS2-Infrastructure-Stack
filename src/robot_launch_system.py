@@ -54,6 +54,7 @@ def generate_launch_description() -> LaunchDescription:
     )
 
     # ================ ROS 2 Packages ==================
+
     # Clock pose issuer node (always runs)
     clock_pose_issuer_node = Node(
         package='clock_pose_issuer',
@@ -68,6 +69,22 @@ def generate_launch_description() -> LaunchDescription:
         output='screen'
     )
 
+    # Motion controller node (always runs)
+    motion_controller_node = Node(
+        package='motion_controller',
+        executable='motion_controller',
+        name='motion_controller',
+        parameters=[{
+            'use_sim_time': sim,
+            'robot_name': robot_name,
+        }],
+        remappings=[
+            ('/target_pose_clock', '/target_pose_clock'),
+            ('/cmd_vel', '/cmd_vel')
+        ],
+        output='screen'
+    )
+
     # ================ Launch description ==================
     return LaunchDescription([
         headless_arg,
@@ -76,4 +93,5 @@ def generate_launch_description() -> LaunchDescription:
         robot_name_arg,
         turtlesim_node,
         clock_pose_issuer_node,
+        motion_controller_node,
     ])
