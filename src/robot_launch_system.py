@@ -48,7 +48,7 @@ def generate_launch_description() -> LaunchDescription:
         condition=IfCondition(sim),
         remappings=[
             ('/turtle1/cmd_vel', '/cmd_vel'),
-            ('/current_pose', '/turtle1/pose')
+            ('/target_pose_clock', '/turtle1/pose')
         ],
         output='screen'
     )

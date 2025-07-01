@@ -26,6 +26,8 @@ TODO: update with instructions later
 ### Diagram
 
 TODO: insert diagram here
+- motion_controller decides which target pose to use
+- `/cmd_vel` moves the turtle in sim
 
 ### Topics list
 
@@ -33,7 +35,7 @@ TODO: insert diagram here
 | --- | --- | --- |
 | clock_pose_issuer | `/target_pose_clock` | |
 | gui_pose_issuer | `/target_pose_gui` | |
-| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/current_pose` |
+| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui` |
 
 
 #### Testing topic publishing
