@@ -2,7 +2,7 @@
 
 It is generally recommended to install ROS 2 from Debian packages, and specifically discouraged to install ROS 2 on a macOS machine (both by source and binary) because it is not officially supported.
 
-*Note*: This ROS 2 packages repository should work agnostic of your system's OS and which installer you use to install ROS 2. You may need to adjust your `PYTHONPATH`, along with other system variables, if you are not using a ROS 2 virtual environment.
+*Note*: This ROS 2 packages repository should work agnostic of your system's OS and which installer you use to install ROS 2.
 
 ## Prerequisites
 
@@ -22,5 +22,6 @@ The [Foxy Ubuntu (deb packages)](https://docs.ros.org/en/foxy/Installation/Ubunt
 ## Instructions
 
 1. Install [Foxy Ubuntu (deb packages)](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
-    - *Note*: ROS 2 Foxy requires Python v3.8. I have Python v3.12.5, so I had to install ROS 2's dependencies inside a Python virtual environment (`python3 -m venv ~/ros2_venv`) to avoid system conflicts
+    - *Note*: ROS 2 Foxy requires Python v3.8. It is recommended to install ROS 2 using a virtual environment (`python3.8 -m venv ~/ros2_foxy_venv`) to avoid system conflicts
         - *Note*: those Python pip installs often required the `--break-system-packages` flag 
+1. Validation: ensure `ros2 --help` and `colcon --help` do not throw any errors.
