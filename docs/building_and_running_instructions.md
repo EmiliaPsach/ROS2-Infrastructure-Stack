@@ -39,3 +39,30 @@ If none of the optional flags are passed, then the default behavior is to enable
 
 - **Default**: `ros2 launch src/robot_launch_system.py`
 - **Simulation**: `ros2 launch src/robot_launch_system.py sim:=true`
+
+
+## Debugging steps
+
+- If a package is not working, run ROS 2:
+    1. Check if it is running at all: `ros2 node list`
+    1. Livestream the message(s)'s output(s): `ros2 topic echo <insert message name here>`
+        - **Example output**:
+            ```yaml
+            ros2 topic echo /target_pose_clock
+            header:
+            stamp:
+                sec: 0
+                nanosec: 0
+            frame_id: map
+            pose:
+            position:
+                x: 0.7874430662013701
+                y: -0.6163873923851662
+                z: 0.0
+            orientation:
+                x: 0.0
+                y: 0.0
+                z: 0.9453684641983172
+                w: 0.3260037835659504
+            ---
+            ```

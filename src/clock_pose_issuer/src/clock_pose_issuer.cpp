@@ -49,6 +49,8 @@ void ClockPoseIssuer::timer_callback()
     
     // Set header
     message.header.stamp = this->get_clock()->now();
+    RCLCPP_INFO(this->get_logger(), "Publishing with stamp sec=%u, nanosec=%u", message.header.stamp.sec, message.header.stamp.nanosec);
+
     message.header.frame_id = frame_id_;
     
     // Calculate and set pose

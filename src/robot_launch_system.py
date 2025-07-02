@@ -48,22 +48,52 @@ def generate_launch_description() -> LaunchDescription:
         condition=IfCondition(sim),
         remappings=[
             ('/turtle1/cmd_vel', '/cmd_vel'),
-            ('/target_pose_clock', '/turtle1/pose')
         ],
         output='screen'
     )
 
+    # Turtlesim Odometry Bridge Node (only runs if sim==true)
+    turtlesim_odom_bridge_node = Node(
+        package='turtlesim_pose_publisher',
+        executable='turtlesim_pose_publisher',
+        name='turtlesim_pose_publisher',
+        condition=IfCondition(sim),
+        output='screen'
+    )
+
+    # Turtlesim Velocity Bridge Node
+    turtlesim_velocity_transformer = Node(
+        package='turtlesim_velocity_transformer',
+        executable='turtlesim_velocity_transformer',
+        name='turtlesim_velocity_transformer',
+        output='screen'
+    )
+
     # ================ ROS 2 Packages ==================
+
     # Clock pose issuer node (always runs)
     clock_pose_issuer_node = Node(
         package='clock_pose_issuer',
         executable='clock_node',
         name='clock_pose_issuer',
         parameters=[{
-            'use_sim_time': sim,
+            # 'use_sim_time': sim,
             'publish_rate': 10.0,
             'frame_id': 'map',
             'topic_name': '/target_pose_clock',
+        }],
+        output='screen'
+    )
+
+    # Motion controller node (always runs)
+    motion_controller_node = Node(
+        package='motion_controller',
+        executable='motion_controller',
+        name='motion_controller',
+        parameters=[{
+            # 'use_sim_time': sim,
+            'robot_name': robot_name,
+            'frame_id': 'map',
         }],
         output='screen'
     )
@@ -75,5 +105,8 @@ def generate_launch_description() -> LaunchDescription:
         testing_arg,
         robot_name_arg,
         turtlesim_node,
+        turtlesim_odom_bridge_node,
+        turtlesim_velocity_transformer,
         clock_pose_issuer_node,
+        motion_controller_node,
     ])
