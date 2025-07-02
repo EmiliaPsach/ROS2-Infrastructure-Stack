@@ -1,6 +1,6 @@
-# Turtlesim Pose Publisher
+# Turtlesim Pose Transformer
 
-The `turtlesim_pose_publisher` node transforms native `/turtle1/pose` messages from `turtlesim` into normalized `geometry_msgs/msg/PoseStamped` messages within a fixed coordinate frame `[-1, 1] × [-1, 1]`. These transformed poses are published on the `/cur_pose` topic for use in other systems that expect frame-consistent input.
+The `turtlesim_pose_transformer` node transforms native `/turtle1/pose` messages from `turtlesim` into normalized `geometry_msgs/msg/PoseStamped` messages within a fixed coordinate frame `[-1, 1] × [-1, 1]`. These transformed poses are published on the `/cur_pose` topic for use in other systems that expect frame-consistent input.
 
 ## Output Topic
 

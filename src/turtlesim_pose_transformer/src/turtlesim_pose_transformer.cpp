@@ -1,13 +1,13 @@
-#include "turtlesim_pose_publisher/turtlesim_pose_publisher.hpp"
+#include "turtlesim_pose_transformer/turtlesim_pose_transformer.hpp"
 
-namespace turtlesim_pose_publisher
+namespace turtlesim_pose_transformer
 {
 /**
  * @brief Constructor implementation
  * 
  * Sets up the subscription to "/turtle1/pose" and publisher to "/cur_pose".
  */
-TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_publisher")
+TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_transformer")
 {
   // Subscribe to turtlesim pose updates with queue size 10
   pose_sub_ = this->create_subscription<turtlesim::msg::Pose>(
@@ -72,4 +72,4 @@ int main(int argc, char **argv)
   return 0;
 }
 
-} // namespace turtlesim_pose_publisher
+} // namespace turtlesim_pose_transformer

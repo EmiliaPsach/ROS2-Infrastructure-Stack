@@ -5,7 +5,7 @@
     - handles shutdown gracefully
 */
 
-#include "turtlesim_pose_publisher/turtlesim_pose_publisher.hpp"
+#include "turtlesim_pose_transformer/turtlesim_pose_transformer.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 int main(int argc, char* argv[])
@@ -14,9 +14,9 @@ int main(int argc, char* argv[])
     rclcpp::init(argc, argv);
     
     // Create the node instance
-    auto node = std::make_shared<turtlesim_pose_publisher::TurtlesimPosePublisher>();
+    auto node = std::make_shared<turtlesim_pose_transformer::TurtlesimPosePublisher>();
     
-    RCLCPP_INFO(node->get_logger(), "Starting turtlesim_pose_publisher node...");
+    RCLCPP_INFO(node->get_logger(), "Starting turtlesim_pose_transformer node...");
     
     try {
         // Keep the node running and processing callbacks

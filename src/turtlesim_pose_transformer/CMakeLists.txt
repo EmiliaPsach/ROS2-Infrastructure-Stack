@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8...3.27)
-project(turtlesim_pose_publisher)
+project(turtlesim_pose_transformer)
 
 # Compiler settings
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -19,7 +19,7 @@ include_directories(include)
 
 # Create a library from the class implementation
 add_library(${PROJECT_NAME}_lib 
-  src/turtlesim_pose_publisher.cpp
+  src/turtlesim_pose_transformer.cpp
 )
 
 # Link dependencies to library
@@ -32,15 +32,15 @@ ament_target_dependencies(${PROJECT_NAME}_lib
 )
 
 # Create executable
-add_executable(turtlesim_pose_publisher 
-  src/turtlesim_pose_publisher_node.cpp
+add_executable(turtlesim_pose_transformer 
+  src/turtlesim_pose_transformer_node.cpp
 )
 
 # Link library to executable
-target_link_libraries(turtlesim_pose_publisher ${PROJECT_NAME}_lib)
+target_link_libraries(turtlesim_pose_transformer ${PROJECT_NAME}_lib)
 
 # Link dependencies to executable
-ament_target_dependencies(turtlesim_pose_publisher
+ament_target_dependencies(turtlesim_pose_transformer
   rclcpp
   turtlesim
   geometry_msgs
@@ -50,7 +50,7 @@ ament_target_dependencies(turtlesim_pose_publisher
 
 # Install executable
 install(TARGETS
-  turtlesim_pose_publisher
+  turtlesim_pose_transformer
   DESTINATION lib/${PROJECT_NAME}
 )
 
