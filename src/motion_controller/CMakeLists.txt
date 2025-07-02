@@ -12,6 +12,9 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(message_filters REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 # Include directories
 include_directories(include)
@@ -27,6 +30,9 @@ ament_target_dependencies(${PROJECT_NAME}_lib
   std_msgs
   geometry_msgs
   nav_msgs
+  message_filters
+  tf2
+  tf2_geometry_msgs
 )
 
 # Create executable
@@ -43,6 +49,9 @@ ament_target_dependencies(motion_controller
   std_msgs
   geometry_msgs
   nav_msgs
+  message_filters
+  tf2
+  tf2_geometry_msgs
 )
 
 # Install executable
@@ -59,6 +68,6 @@ install(DIRECTORY include/
 # Export dependencies
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME}_lib)
-ament_export_dependencies(rclcpp std_msgs geometry_msgs)
+ament_export_dependencies(rclcpp std_msgs geometry_msgs nav_msgs message_filters tf2 tf2_geometry_msgs)
 
 ament_package()

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>turtlesim_pose_publisher</name>
+  <version>0.0.1</version>
+  <description>Publishes turtlesim/pose to nav_msgs/Odometry</description>
+
+  <maintainer email="emiliapsach@gmail.com">Emilia Psacharopoulos</maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>nav_msgs</depend>
+  <depend>turtlesim</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

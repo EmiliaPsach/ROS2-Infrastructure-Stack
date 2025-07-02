@@ -9,7 +9,7 @@ The clock_pose_issuer node publishes 6-DoF target poses to the `/target_pose_clo
 | Detail | Value |
 |---|---|
 | **Message Type** | `geometry_msgs/msg/PoseStamped` |
-| **Header** | **frame_id**: Configurable via the `frame_id` parameter (default: `"map"`). **stamp**: Current ROS time, respecting simulation time if `use_sim_time` is set. |
+| **Header** | **frame_id**: Configurable via the `frame_id` parameter (default: `"map"`) |
 
 ### Pose Semantics
 
