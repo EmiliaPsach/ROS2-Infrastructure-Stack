@@ -52,11 +52,11 @@ def generate_launch_description() -> LaunchDescription:
         output='screen'
     )
 
-    # Turtlesim Odometry Bridge Node (only runs if sim==true)
-    turtlesim_odom_bridge_node = Node(
-        package='turtlesim_pose_publisher',
-        executable='turtlesim_pose_publisher',
-        name='turtlesim_pose_publisher',
+    # Turtlesim Pose Bridge Node
+    turtlesim_pose_transformer = Node(
+        package='turtlesim_pose_transformer',
+        executable='turtlesim_pose_transformer',
+        name='turtlesim_pose_transformer',
         condition=IfCondition(sim),
         output='screen'
     )
@@ -105,7 +105,7 @@ def generate_launch_description() -> LaunchDescription:
         testing_arg,
         robot_name_arg,
         turtlesim_node,
-        turtlesim_odom_bridge_node,
+        turtlesim_pose_transformer,
         turtlesim_velocity_transformer,
         clock_pose_issuer_node,
         motion_controller_node,

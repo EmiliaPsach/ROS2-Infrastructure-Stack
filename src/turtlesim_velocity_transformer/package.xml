@@ -2,7 +2,7 @@
 <package format="3">
   <name>turtlesim_velocity_transformer</name>
   <version>0.0.1</version>
-  <description>Transforms normalized velocity commands to turtlesim velocity commands</description>
+  <description>Transforms velocity commands, from a unit circle reference, to the turtlesim's reference and publishes those commands to turtlesim</description>
   <maintainer email="emiliapsach@gmail.com">Emilia Psacharopoulos</maintainer>
   <license>Apache-2.0</license>
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8...3.27)
-project(turtlesim_velocity_transformer)
+project(turtlesim_pose_transformer)
 
 # Compiler settings
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -9,39 +9,48 @@ endif()
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(turtlesim REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 # Include directories
 include_directories(include)
 
 # Create a library from the class implementation
 add_library(${PROJECT_NAME}_lib 
-  src/turtlesim_velocity_transformer.cpp
+  src/turtlesim_pose_transformer.cpp
 )
 
 # Link dependencies to library
 ament_target_dependencies(${PROJECT_NAME}_lib
   rclcpp
+  turtlesim
   geometry_msgs
+  tf2
+  tf2_geometry_msgs
 )
 
 # Create executable
-add_executable(turtlesim_velocity_transformer 
-  src/turtlesim_velocity_transformer_node.cpp
+add_executable(turtlesim_pose_transformer 
+  src/turtlesim_pose_transformer_node.cpp
 )
 
 # Link library to executable
-target_link_libraries(turtlesim_velocity_transformer ${PROJECT_NAME}_lib)
+target_link_libraries(turtlesim_pose_transformer ${PROJECT_NAME}_lib)
 
 # Link dependencies to executable
-ament_target_dependencies(turtlesim_velocity_transformer
+ament_target_dependencies(turtlesim_pose_transformer
   rclcpp
+  turtlesim
   geometry_msgs
+  tf2
+  tf2_geometry_msgs
 )
 
 # Install executable
 install(TARGETS
-  turtlesim_velocity_transformer
+  turtlesim_pose_transformer
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -53,6 +62,6 @@ install(DIRECTORY include/
 # Export dependencies
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME}_lib)
-ament_export_dependencies(rclcpp geometry_msgs)
+ament_export_dependencies(rclcpp turtlesim geometry_msgs tf2 tf2_geometry_msgs)
 
 ament_package()

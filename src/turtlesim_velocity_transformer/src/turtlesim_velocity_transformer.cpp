@@ -1,9 +1,12 @@
 #include "turtlesim_velocity_transformer/turtlesim_velocity_transformer.hpp"
 
+namespace turtlesim_velocity_transformer
+{
+
 /**
  * @brief Constructor implementation.
  * 
- * Initializes subscribers for /cmd_vel (world frame velocity commands) and /sim_pose (latest robot pose),
+ * Initializes subscribers for /cmd_vel (world frame velocity commands) and /cur_pose (latest robot pose),
  * and a publisher for turtlesim's /turtle1/cmd_vel (body frame velocity commands).
  */
 TurtlesimVelocityTransformer::TurtlesimVelocityTransformer() : Node("turtlesim_velocity_transformer")
@@ -13,7 +16,7 @@ TurtlesimVelocityTransformer::TurtlesimVelocityTransformer() : Node("turtlesim_v
     std::bind(&TurtlesimVelocityTransformer::cmdVelCallback, this, std::placeholders::_1));
 
   pose_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-    "/sim_pose", 10,
+    "/cur_pose", 10,
     std::bind(&TurtlesimVelocityTransformer::poseCallback, this, std::placeholders::_1));
 
   pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel", 10);
@@ -92,13 +95,4 @@ void TurtlesimVelocityTransformer::cmdVelCallback(const geometry_msgs::msg::Twis
   pub_->publish(cmd);
 }
 
-/**
- * @brief Main function to initialize ROS 2, run the node, and shutdown cleanly.
- */
-int main(int argc, char **argv)
-{
-  rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<TurtlesimVelocityTransformer>());
-  rclcpp::shutdown();
-  return 0;
-}
+}  // namespace turtlesim_velocity_transformer

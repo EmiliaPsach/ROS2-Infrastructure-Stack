@@ -1,5 +1,5 @@
-#ifndef TURTLESIM_POSE_PUBLISHER_HPP_
-#define TURTLESIM_POSE_PUBLISHER_HPP_
+#ifndef TURTLESIM_POSE_TRANSFORMER_HPP_
+#define TURTLESIM_POSE_TRANSFORMER_HPP_
 
 // ROS 2 core and message includes
 #include "rclcpp/rclcpp.hpp"
@@ -8,6 +8,8 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.h"
 
+namespace turtlesim_pose_transformer
+{
 /**
  * @brief A ROS 2 node that subscribes to the turtlesim pose topic and publishes
  *        a transformed PoseStamped message in a normalized world frame.
@@ -33,4 +35,6 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;  ///< Publisher for normalized PoseStamped messages
 };
 
-#endif  // TURTLESIM_POSE_PUBLISHER_HPP_
+#endif  // TURTLESIM_POSE_TRANSFORMER_HPP_
+
+} // namespace turtlesim_pose_transformer

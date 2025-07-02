@@ -21,7 +21,7 @@ MotionController::MotionController()
 
     // Subscribers using message_filters for time synchronization
     target_pose_sub_ = std::make_shared<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>>(this, "/target_pose_clock");
-    current_pose_sub_ = std::make_shared<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>>(this, "/sim_pose");
+    current_pose_sub_ = std::make_shared<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>>(this, "/cur_pose");
 
     // Synchronizer to call control logic only when both messages are available
     sync_ = std::make_shared<message_filters::Synchronizer<SyncPolicy>>(SyncPolicy(10), *target_pose_sub_, *current_pose_sub_);

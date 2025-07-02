@@ -9,11 +9,14 @@
 #include "tf2_geometry_msgs/tf2_geometry_msgs.h"
 #include <cmath>
 
+namespace turtlesim_velocity_transformer
+{
+
 /**
  * @brief Node to transform velocity commands from world frame to the turtle's body frame.
  * 
  * It reads velocity commands published in world coordinates (from motion_controller),
- * rotates them using the latest robot orientation from /sim_pose, scales velocity
+ * rotates them using the latest robot orientation from /cur_pose, scales velocity
  * to turtlesim units, and publishes them to turtlesim's /turtle1/cmd_vel topic (body frame).
  */
 class TurtlesimVelocityTransformer : public rclcpp::Node
@@ -52,3 +55,5 @@ private:
 };
 
 #endif  // TURTLESIM_VELOCITY_TRANSFORMER_HPP_
+
+}
