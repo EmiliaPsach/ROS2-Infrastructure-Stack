@@ -16,6 +16,10 @@ This repository has the following packages in the `src` directory:
     - GUI for user-desire manual 6D pose commands with an option for spacebar reset
 1. **motion_controller**
     - Converts target poses to velocity commands
+1. **turtlesim_pose_publisher**
+    - Publishes the turtle simulation's pose as the current pose
+1. **turtlesim_velocity_transformer**
+    - Transforms velocity commands, from a unit circle reference, to the turtlesim's reference and publishes those commands to turtlesim
 
 ### Adding additional packages
 
@@ -43,4 +47,6 @@ TODO: insert diagram here
 | --- | --- | --- |
 | clock_pose_issuer | `/target_pose_clock` | |
 | gui_pose_issuer | `/target_pose_gui` | |
-| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/sim_pose` |
+| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/cur_pose` |
+| turtlesim_pose_publisher | `/cur_pose` | `/turtle1/pose` |
+| turtlesim_velocity_transformer | `/turtle1/cmd_vel` | `/cmd_vel`, `/cur_pose` |

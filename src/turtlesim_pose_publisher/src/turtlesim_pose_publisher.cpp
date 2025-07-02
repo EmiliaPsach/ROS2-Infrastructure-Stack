@@ -1,9 +1,11 @@
 #include "turtlesim_pose_publisher/turtlesim_pose_publisher.hpp"
 
+namespace turtlesim_pose_publisher
+{
 /**
  * @brief Constructor implementation
  * 
- * Sets up the subscription to "/turtle1/pose" and publisher to "/sim_pose".
+ * Sets up the subscription to "/turtle1/pose" and publisher to "/cur_pose".
  */
 TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_publisher")
 {
@@ -13,7 +15,7 @@ TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_publishe
     std::bind(&TurtlesimPosePublisher::pose_callback, this, std::placeholders::_1));
 
   // Publisher for transformed pose in PoseStamped format
-  pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/sim_pose", 10);
+  pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/cur_pose", 10);
 }
 
 /**
@@ -69,3 +71,5 @@ int main(int argc, char **argv)
   rclcpp::shutdown();
   return 0;
 }
+
+} // namespace turtlesim_pose_publisher

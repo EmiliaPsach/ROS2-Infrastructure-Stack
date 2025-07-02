@@ -8,6 +8,8 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.h"
 
+namespace turtlesim_pose_publisher
+{
 /**
  * @brief A ROS 2 node that subscribes to the turtlesim pose topic and publishes
  *        a transformed PoseStamped message in a normalized world frame.
@@ -34,3 +36,5 @@ private:
 };
 
 #endif  // TURTLESIM_POSE_PUBLISHER_HPP_
+
+} // namespace turtlesim_pose_publisher

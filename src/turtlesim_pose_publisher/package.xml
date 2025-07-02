@@ -2,7 +2,7 @@
 <package format="2">
   <name>turtlesim_pose_publisher</name>
   <version>0.0.1</version>
-  <description>Publishes turtlesim/pose to nav_msgs/Odometry</description>
+  <description>Publishes the turtle simulation's pose as the current pose</description>
 
   <maintainer email="emiliapsach@gmail.com">Emilia Psacharopoulos</maintainer>
   <license>Apache 2.0</license>
