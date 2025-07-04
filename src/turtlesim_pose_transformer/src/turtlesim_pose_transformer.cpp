@@ -1,18 +1,16 @@
 #include "turtlesim_pose_transformer/turtlesim_pose_transformer.hpp"
 
-namespace turtlesim_pose_transformer
-{
+namespace turtlesim_pose_transformer {
 /**
  * @brief Constructor implementation
- * 
+ *
  * Sets up the subscription to "/turtle1/pose" and publisher to "/cur_pose".
  */
-TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_transformer")
-{
+TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_transformer") {
   // Subscribe to turtlesim pose updates with queue size 10
   pose_sub_ = this->create_subscription<turtlesim::msg::Pose>(
-    "/turtle1/pose", 10,
-    std::bind(&TurtlesimPosePublisher::pose_callback, this, std::placeholders::_1));
+      "/turtle1/pose", 10,
+      std::bind(&TurtlesimPosePublisher::pose_callback, this, std::placeholders::_1));
 
   // Publisher for transformed pose in PoseStamped format
   pose_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/cur_pose", 10);
@@ -20,14 +18,13 @@ TurtlesimPosePublisher::TurtlesimPosePublisher() : Node("turtlesim_pose_transfor
 
 /**
  * @brief Callback to process turtlesim pose messages
- * 
+ *
  * Converts the turtlesim pose into a normalized pose centered at (0,0) in a
  * fixed coordinate frame [-1,1] x [-1,1], then publishes the result.
- * 
+ *
  * @param msg The turtlesim pose message received
  */
-void TurtlesimPosePublisher::pose_callback(const turtlesim::msg::Pose::SharedPtr msg)
-{
+void TurtlesimPosePublisher::pose_callback(const turtlesim::msg::Pose::SharedPtr msg) {
   geometry_msgs::msg::PoseStamped pose_msg;
 
   // Timestamp the new message with current ROS time
@@ -58,18 +55,4 @@ void TurtlesimPosePublisher::pose_callback(const turtlesim::msg::Pose::SharedPtr
   pose_pub_->publish(pose_msg);
 }
 
-/**
- * @brief Main function to initialize ROS, run the node, and clean up.
- */
-int main(int argc, char **argv)
-{
-  rclcpp::init(argc, argv);
-
-  // Create node and spin until shutdown
-  rclcpp::spin(std::make_shared<TurtlesimPosePublisher>());
-
-  rclcpp::shutdown();
-  return 0;
-}
-
-} // namespace turtlesim_pose_transformer
+}  // namespace turtlesim_pose_transformer

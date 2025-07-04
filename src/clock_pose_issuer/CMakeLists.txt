@@ -58,4 +58,22 @@ ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME}_lib)
 ament_export_dependencies(rclcpp std_msgs geometry_msgs)
 
+# Testing
+if(BUILD_TESTING)
+  # Optional: lint the code
+  # find_package(ament_lint_auto REQUIRED)
+  # ament_lint_auto_find_test_dependencies()
+
+  find_package(ament_cmake_gtest REQUIRED)
+
+  ament_add_gtest(test_clock_pose_issuer test/test_clock_pose_issuer.cpp)
+  if(TARGET test_clock_pose_issuer)
+    target_link_libraries(test_clock_pose_issuer ${PROJECT_NAME}_lib)
+    ament_target_dependencies(test_clock_pose_issuer
+      rclcpp
+      geometry_msgs
+    )
+  endif()
+endif()
+
 ament_package()

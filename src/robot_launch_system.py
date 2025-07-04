@@ -85,6 +85,20 @@ def generate_launch_description() -> LaunchDescription:
         output='screen'
     )
 
+    # GUI pose issuer node (always runs)
+    gui_pose_issuer_node = Node(
+        package='gui_pose_issuer',
+        executable='gui_pose_node',
+        name='gui_pose_issuer',
+        parameters=[{
+            # 'use_sim_time': sim,
+            'publish_rate': 10.0,
+            'frame_id': 'map',
+            'topic_name': '/target_pose_gui',
+        }],
+        output='screen'
+    )
+
     # Motion controller node (always runs)
     motion_controller_node = Node(
         package='motion_controller',
@@ -108,5 +122,6 @@ def generate_launch_description() -> LaunchDescription:
         turtlesim_pose_transformer,
         turtlesim_velocity_transformer,
         clock_pose_issuer_node,
+        gui_pose_issuer_node,
         motion_controller_node,
     ])

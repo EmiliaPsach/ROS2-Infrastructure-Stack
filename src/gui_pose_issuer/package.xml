@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>clock_pose_issuer</name>
+  <name>gui_pose_issuer</name>
   <version>0.1.0</version>
-  <description>Publishes 6D poses according to clock time</description>
+  <description>Allows human operator to click a position on a clock GUI to issue robot pose goals, or press spacebar to return to automatic clock following.</description>
 
   <maintainer email="emiliapsach@gmail.com">Emilia Psacharopoulos</maintainer>
   <license>Apache License 2.0</license>
@@ -10,9 +10,11 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>rclcpp</depend>
-  <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>qtbase5-dev</depend>
+  <depend>std_msgs</depend>
 
+  <!-- Optional testing dependencies -->
   <!-- <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend> -->
 

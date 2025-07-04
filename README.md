@@ -5,6 +5,7 @@ Robotics software infrastructure for a ROS2 test environment
 
 **Using the Packages**: [Building and Running Instructions](docs/building_and_running_instructions.md).
 
+**Testing and Formatting the Packages**: [Testing and Formatting Instructions](docs/testing_and_formatting_instructions.md).
 
 ## Packages list
 
@@ -23,33 +24,37 @@ This repository has the following packages in the `src` directory:
 
 ### Adding additional packages
 
-TODO: update with instructions later
+Adding additional C++ packages in this repository is very straightforward:
+1. Follow the existing structure of each package in this repo:
+    - **Required**: CMakeLists.txt, package.xml, .cpp source code
+    - **Optional; stylistic**: .hpp header, tests, separate node .cpp file
+1. Add node to the launch script (robot_launch_system.py)
 
 ## Package Specifications
 
 ### Package connectivity
 
-![packages_topics_connectivity_system_diagram](docs/images/packages_topics_connectivity_system_diagram.png "ROS 2 Packages Connectivity Diagram")
+<img src="docs/images/packages_topics_connectivity_system_diagram.png" alt="ROS 2 Packages Connectivity Diagram" title="ROS 2 Packages Connectivity Diagram" width="500"/>
 
 ### Coordinate Systems
 
-| Component              | Coordinate Frame     | Coordinate System Description                                    | Allowed Actions          | Responsible For                            |
-| ---------------------- | -------------------- | ---------------------------------------------------------------- | ------------------------ | ------------------------------------------ |
-| `motion_controller`    | World `[-1, 1]`      | Full normalized world frame centered at (0, 0)                   | Compute vx, vy           | High-level target pursuit in global map    |
-| `pose_transformer`     | World `[-1, 1]`      | Maps turtlesim to `[-1, 1]`, but turtle only moves in radius 0.7 | Transform raw sim pose   | Convert `/turtle1/pose` → world-frame pose |
-| `velocity_transformer` | Turtle’s local frame | Body frame; interprets vx, angular.z in robot coordinates        | linear.x, angular.z only | Convert world vx/vy → linear.x + angular.z |
+| Component              | Coordinate Frame         | Description                                                                                                                       | Allowed Actions                 | Responsibilities                                   |
+| ---------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | -------------------------------------------------- |
+| `motion_controller`    | **World** `[-1, 1]`      | Global normalized frame, centered at (0, 0). Target positions are issued in this space.                                           | Compute `vx`, `vy`              | High-level path planning and control               |
+| `pose_transformer`     | **World** `[-1, 1]`      | Maps raw `/turtle1/pose` (in 11×11 sim frame) into the normalized world frame. The turtle operates within a radius-0.7 subregion. | Transform turtle pose           | Converts `turtlesim` pose → world pose             |
+| `velocity_transformer` | **Turtle's local frame** | Robot-centric body frame. Interprets linear and angular velocity commands relative to the robot's heading.                        | Accepts `linear.x`, `angular.z` | Converts world-frame velocity → body-frame command |
 
-The turtle's local frame is about 11 by 11, where (0, 0) is in the bottom left corner and (11, 11) is in the top right
-
-![unit_circle_analog_clock](docs/images/unit_circle_analog_clock.jpg "Unit circle on analog clock")
-
+- The TurtleSim coordinate frame is a 2D Cartesian grid from (0, 0) in the bottom-left to (11, 11) in the top-right.
+- The World frame is a normalized [-1, 1] × [-1, 1] space, centered at the origin.
+    - <img src="docs/images/unit_circle_analog_clock.jpg" alt="Unit circle on analog clock" title="Unit circle on analog clock" width="300"/>
+- The Robot’s local (body) frame has the turtle at the origin (0, 0) facing right (along the positive x-axis). Velocity commands here are interpreted relative to this orientation.
 
 ### Topics list
 
 | Node | Publishes (topics) | Subscribes (topics) |
 | --- | --- | --- |
-| clock_pose_issuer | `/target_pose_clock` | |
+| clock_pose_issuer | `/target_pose_clock`, `/clock_mode_enabled` | |
 | gui_pose_issuer | `/target_pose_gui` | |
-| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/cur_pose` |
+| motion_controller | `/cmd_vel` | `/clock_mode_enabled`, `/target_pose_clock`, `/target_pose_gui`, `/cur_pose` |
 | turtlesim_pose_transformer | `/cur_pose` | `/turtle1/pose` |
 | turtlesim_velocity_transformer | `/turtle1/cmd_vel` | `/cmd_vel`, `/cur_pose` |
