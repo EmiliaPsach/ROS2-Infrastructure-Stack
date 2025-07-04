@@ -34,9 +34,36 @@ GuiPoseIssuer::GuiPoseIssuer()
   // Set up simple 2D scene and view
   scene_ = new QGraphicsScene();
   view_ = new QGraphicsView(scene_);
+
+  // Define scene rectangle
   view_->setSceneRect(-1.1, -1.1, 2.2, 2.2);
   view_->setRenderHint(QPainter::Antialiasing);
-  view_->installEventFilter(this);  // Route events to this class
+
+  // Draw clock face circle
+  QPen pen(Qt::black);
+  pen.setWidthF(0.02);
+  QBrush brush(Qt::white);
+  scene_->addEllipse(-1.0, -1.0, 2.0, 2.0, pen, brush);
+
+  // Draw hour ticks
+  for (int i = 0; i < 12; ++i) {
+    double angle = i * M_PI / 6;  // 30 degrees per hour
+    double inner_r = 0.9;
+    double outer_r = 1.0;
+    QPointF inner(inner_r * std::cos(angle), inner_r * std::sin(angle));
+    QPointF outer(outer_r * std::cos(angle), outer_r * std::sin(angle));
+    scene_->addLine(QLineF(inner, outer), pen);
+  }
+
+  // Install event filter to capture mouse clicks and key presses
+  view_->installEventFilter(this);
+
+  // Make sure the view fits the scene rect exactly, scaling everything
+  view_->fitInView(scene_->sceneRect(), Qt::KeepAspectRatio);
+
+  // Set window size explicitly (optional)
+  view_->setFixedSize(400, 400);
+
   view_->show();
 }
 

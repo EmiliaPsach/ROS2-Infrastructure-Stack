@@ -1,15 +1,12 @@
-/* Declares the class interface for this package */
+#ifndef MOTION_CONTROLLER_HPP_
+#define MOTION_CONTROLLER_HPP_
 
-#ifndef MOTION_CONTROLLER_HPP
-#define MOTION_CONTROLLER_HPP
+#include <memory>
+#include <cmath>
 
-#include <message_filters/subscriber.h>
-#include <message_filters/sync_policies/approximate_time.h>
-#include <message_filters/synchronizer.h>
-
+#include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/twist.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 namespace motion_controller {
 
@@ -18,25 +15,30 @@ class MotionController : public rclcpp::Node {
   MotionController();
 
  private:
-  // Callback for synchronized target and current pose messages
-  void synced_callback(const geometry_msgs::msg::PoseStamped::ConstSharedPtr& target,
-                       const geometry_msgs::msg::PoseStamped::ConstSharedPtr& current);
+  // Subscribers for target poses and current pose
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr clock_pose_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr gui_pose_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr current_pose_sub_;
 
-  // Publisher for cmd_vel velocity commands
+  // Publisher for velocity commands
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;
 
-  // Message filter subscribers for target and current poses
-  std::shared_ptr<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>> target_pose_sub_;
-  std::shared_ptr<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>> current_pose_sub_;
+  // Last received poses
+  geometry_msgs::msg::PoseStamped clock_pose_;
+  geometry_msgs::msg::PoseStamped gui_pose_;
 
-  // Synchronizer for approximate time policy
-  typedef message_filters::sync_policies::ApproximateTime<geometry_msgs::msg::PoseStamped,
-                                                          geometry_msgs::msg::PoseStamped>
-      SyncPolicy;
+  // Timestamp of last GUI pose received
+  rclcpp::Time last_gui_pose_time_;
 
-  std::shared_ptr<message_filters::Synchronizer<SyncPolicy>> sync_;
+  // Flag indicating whether a GUI pose has been received
+  bool has_gui_pose_;
+
+  // Callbacks
+  void clock_pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
+  void gui_pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
+  void current_pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
 };
 
 }  // namespace motion_controller
 
-#endif  // MOTION_CONTROLLER_HPP
+#endif  // MOTION_CONTROLLER_HPP_

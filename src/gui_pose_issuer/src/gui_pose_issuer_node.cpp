@@ -1,30 +1,33 @@
-/* Main entry point to this package that
-    - initializes ROS2
-    - creates an instance of the class
-    - spins the node (keep it running)
-    - handles shutdown gracefully
-*/
-
 #include "gui_pose_issuer/gui_pose_issuer.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include <QApplication>
+#include <thread>
 
 int main(int argc, char* argv[]) {
-  // Initialize ROS2
+  // Initialize ROS 2
   rclcpp::init(argc, argv);
 
-  // Create the node instance
+  // Initialize Qt application
+  QApplication app(argc, argv);
+
+  // Create the GUI node
   auto node = std::make_shared<gui_pose_issuer::GuiPoseIssuer>();
 
   RCLCPP_INFO(node->get_logger(), "Starting GUI pose issuer node...");
 
-  try {
-    // Keep the node running and processing callbacks
+  // Spin ROS 2 in a separate thread so it doesn't block Qt event loop
+  std::thread ros_spin_thread([&]() {
     rclcpp::spin(node);
-  } catch (const std::exception& e) {
-    RCLCPP_ERROR(node->get_logger(), "Exception caught: %s", e.what());
-  }
+  });
 
-  // Clean shutdown
+  // Run the Qt event loop (this blocks until GUI is closed)
+  int ret = app.exec();
+
+  // When GUI closes, shutdown ROS
   rclcpp::shutdown();
-  return 0;
+
+  // Wait for ROS spin thread to finish
+  ros_spin_thread.join();
+
+  return ret;
 }
