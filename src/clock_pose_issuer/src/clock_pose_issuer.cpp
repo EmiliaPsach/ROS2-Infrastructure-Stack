@@ -106,6 +106,12 @@ double ClockPoseIssuer::time_to_angle(double minutes) const {
 
   double angle = (M_PI / 2.0) - (minute * 2.0 * M_PI / 60.0);
 
+  // Normalize to [-π, π]
+  angle = fmod(angle + M_PI, 2.0 * M_PI);
+  if (angle < 0)
+    angle += 2.0 * M_PI;
+  angle -= M_PI;
+
   return angle;
 }
 

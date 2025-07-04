@@ -9,8 +9,9 @@ set -e
 echo "Cleaning workspace..."
 rm -rf build/ install/ log/
 
-echo "Formatting source files..."
-find src/ -type f \( -iname "*.cpp" -o -iname "*.hpp" \) -exec clang-format -i {} +
+# Optional: formatting
+# echo "Formatting source files..."
+# find src/ -type f \( -iname "*.cpp" -o -iname "*.hpp" \) -exec clang-format -i {} +
 
 echo "Building packages..."
 colcon build --symlink-install

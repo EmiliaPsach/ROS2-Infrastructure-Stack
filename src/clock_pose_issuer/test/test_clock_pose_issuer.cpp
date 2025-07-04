@@ -48,3 +48,21 @@ TEST_F(ClockPoseIssuerTest, AngleConversionBounds) {
     EXPECT_LE(angle, M_PI);                  // Check upper bound
   }
 }
+
+// Test: Known time-to-angle mappings (0, 15, 30, 45, 60 minutes)
+TEST_F(ClockPoseIssuerTest, TimeToAngleKnownValues) {
+  // 0 minutes → π/2 (top of clock)
+  EXPECT_NEAR(node_->time_to_angle(0.0), M_PI / 2.0, 1e-6);
+
+  // 15 minutes → 0 (right of clock)
+  EXPECT_NEAR(node_->time_to_angle(15.0), 0.0, 1e-6);
+
+  // 30 minutes → -π/2 (bottom of clock)
+  EXPECT_NEAR(node_->time_to_angle(30.0), -M_PI / 2.0, 1e-6);
+
+  // 45 minutes → -π (left of clock)
+  EXPECT_NEAR(node_->time_to_angle(45.0), -M_PI, 1e-6);
+
+  // 60 minutes → π/2 again (wraps around)
+  EXPECT_NEAR(node_->time_to_angle(60.0), M_PI / 2.0, 1e-6);
+}
