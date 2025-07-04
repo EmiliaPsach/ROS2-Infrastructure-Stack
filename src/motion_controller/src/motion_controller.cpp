@@ -39,10 +39,10 @@ void MotionController::synced_callback(
   double dy = target->pose.position.y - current->pose.position.y;
   double distance = std::sqrt(dx * dx + dy * dy);
 
-  RCLCPP_INFO(this->get_logger(), "dx: %.2f, dy: %.2f, distance: %.2f", dx, dy, distance);
+  // RCLCPP_INFO(this->get_logger(), "dx: %.2f, dy: %.2f, distance: %.2f", dx, dy, distance);
 
   if (distance < 0.05) {
-    RCLCPP_INFO(this->get_logger(), "Target reached. Stopping.");
+    // RCLCPP_INFO(this->get_logger(), "Target reached. Stopping.");
     cmd_vel_publisher_->publish(geometry_msgs::msg::Twist());
     return;
   }
@@ -78,8 +78,8 @@ void MotionController::synced_callback(
   cmd_vel.linear.x = linear_velocity;
   cmd_vel.angular.z = angular_velocity;
 
-  RCLCPP_INFO(this->get_logger(), "linear.x=%.3f, angular.z=%.3f", linear_velocity,
-              angular_velocity);
+  // RCLCPP_INFO(this->get_logger(), "linear.x=%.3f, angular.z=%.3f", linear_velocity,
+  //             angular_velocity);
 
   cmd_vel_publisher_->publish(cmd_vel);
 }

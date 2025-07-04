@@ -38,8 +38,8 @@ void TurtlesimVelocityTransformer::poseCallback(
   double roll, pitch, yaw;
   tf2::Matrix3x3(tf_q).getRPY(roll, pitch, yaw);
 
-  RCLCPP_INFO(this->get_logger(), "Pose: x=%.3f, y=%.3f, theta (yaw)=%.3f radians (%.1f degrees)",
-              msg->pose.position.x, msg->pose.position.y, yaw, yaw * 180.0 / M_PI);
+  // RCLCPP_INFO(this->get_logger(), "Pose: x=%.3f, y=%.3f, theta (yaw)=%.3f radians (%.1f degrees)",
+  //             msg->pose.position.x, msg->pose.position.y, yaw, yaw * 180.0 / M_PI);
 }
 
 /**
@@ -55,7 +55,7 @@ void TurtlesimVelocityTransformer::poseCallback(
 void TurtlesimVelocityTransformer::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg) {
   if (!latest_pose_) {
     // Warn if no pose has been received yet (throttled to once every 2 seconds)
-    RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 2000, "Waiting for sim_pose...");
+    // RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 2000, "Waiting for sim_pose...");
     return;
   }
 
@@ -85,10 +85,10 @@ void TurtlesimVelocityTransformer::cmdVelCallback(const geometry_msgs::msg::Twis
   cmd.angular.z = wz_world;        // Angular velocity (no scaling needed)
 
   // Log details of transformation
-  RCLCPP_INFO(this->get_logger(),
-              "Cmd_vel (world): linear.x=%.3f, angular.z=%.3f | Pose yaw=%.3f rad | Cmd_vel (body "
-              "scaled): linear.x=%.3f, angular.z=%.3f",
-              vx_world, wz_world, yaw, cmd.linear.x, cmd.angular.z);
+  // RCLCPP_INFO(this->get_logger(),
+  //             "Cmd_vel (world): linear.x=%.3f, angular.z=%.3f | Pose yaw=%.3f rad | Cmd_vel (body "
+  //             "scaled): linear.x=%.3f, angular.z=%.3f",
+  //             vx_world, wz_world, yaw, cmd.linear.x, cmd.angular.z);
 
   // Publish transformed velocity command
   pub_->publish(cmd);

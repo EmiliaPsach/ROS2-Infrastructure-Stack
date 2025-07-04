@@ -34,10 +34,10 @@ ClockPoseIssuer::ClockPoseIssuer() : Node("clock_pose_issuer") {
   auto timer_period = std::chrono::duration<double>(1.0 / publish_rate_);
   timer_ = this->create_wall_timer(timer_period, std::bind(&ClockPoseIssuer::timer_callback, this));
 
-  RCLCPP_INFO(this->get_logger(), "Clock pose issuer initialized:");
-  RCLCPP_INFO(this->get_logger(), "  - Publishing to: %s", topic_name_.c_str());
-  RCLCPP_INFO(this->get_logger(), "  - Rate: %.1f Hz", publish_rate_);
-  RCLCPP_INFO(this->get_logger(), "  - Frame ID: %s", frame_id_.c_str());
+  // RCLCPP_INFO(this->get_logger(), "Clock pose issuer initialized:");
+  // RCLCPP_INFO(this->get_logger(), "  - Publishing to: %s", topic_name_.c_str());
+  // RCLCPP_INFO(this->get_logger(), "  - Rate: %.1f Hz", publish_rate_);
+  // RCLCPP_INFO(this->get_logger(), "  - Frame ID: %s", frame_id_.c_str());
 }
 
 void ClockPoseIssuer::timer_callback() {
@@ -45,8 +45,8 @@ void ClockPoseIssuer::timer_callback() {
 
   // Set header
   message.header.stamp = this->get_clock()->now();
-  RCLCPP_INFO(this->get_logger(), "Publishing with stamp sec=%u, nanosec=%u",
-              message.header.stamp.sec, message.header.stamp.nanosec);
+  // RCLCPP_INFO(this->get_logger(), "Publishing with stamp sec=%u, nanosec=%u",
+  //             message.header.stamp.sec, message.header.stamp.nanosec);
 
   message.header.frame_id = frame_id_;
 
@@ -56,8 +56,8 @@ void ClockPoseIssuer::timer_callback() {
   // Publish
   pose_publisher_->publish(message);
 
-  RCLCPP_DEBUG(this->get_logger(), "Published pose: (%.3f, %.3f)", message.pose.position.x,
-               message.pose.position.y);
+  // RCLCPP_DEBUG(this->get_logger(), "Published pose: (%.3f, %.3f)", message.pose.position.x,
+  //              message.pose.position.y);
 }
 
 geometry_msgs::msg::Pose ClockPoseIssuer::calculate_clock_pose() const {
