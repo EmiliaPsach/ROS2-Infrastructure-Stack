@@ -20,6 +20,7 @@ echo "Sourcing environment..."
 source install/setup.sh
 
 echo "Running tests..."
+export QT_QPA_PLATFORM=offscreen
 colcon test
 
 echo "Fetching test results..."
