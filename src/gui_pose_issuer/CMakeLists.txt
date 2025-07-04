@@ -8,6 +8,7 @@ endif()
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
@@ -28,6 +29,7 @@ add_library(${PROJECT_NAME}_lib
 # Link dependencies to library
 ament_target_dependencies(${PROJECT_NAME}_lib
   rclcpp
+  std_msgs
   geometry_msgs
 )
 
@@ -47,6 +49,7 @@ target_link_libraries(gui_pose_node ${PROJECT_NAME}_lib Qt5::Widgets)
 # Link dependencies to executable
 ament_target_dependencies(gui_pose_node
   rclcpp
+  std_msgs
   geometry_msgs
 )
 
@@ -64,7 +67,7 @@ install(DIRECTORY include/
 # Export dependencies
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME}_lib)
-ament_export_dependencies(rclcpp geometry_msgs)
+ament_export_dependencies(rclcpp std_msgs geometry_msgs)
 
 # Testing -- commenting for now because it's buggy
 # if(BUILD_TESTING)
@@ -76,6 +79,7 @@ ament_export_dependencies(rclcpp geometry_msgs)
 #     ament_target_dependencies(test_gui_pose_issuer
 #       rclcpp
 #       geometry_msgs
+#       std_msgs
 #     )
 #   endif()
 # endif()

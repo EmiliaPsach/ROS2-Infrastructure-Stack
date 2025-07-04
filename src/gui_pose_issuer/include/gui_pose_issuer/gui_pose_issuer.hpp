@@ -13,6 +13,7 @@
 
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/bool.hpp"
 
 namespace gui_pose_issuer {
 
@@ -62,6 +63,8 @@ class GuiPoseIssuer : public rclcpp::Node, public QObject {
 
   /// ROS2 publisher for PoseStamped messages
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_publisher_;
+  // ROS2 publisher for mode following (space bar enabled)
+  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr mode_publisher_;
 
   /// Qt graphics components for GUI display
   QGraphicsScene* scene_;

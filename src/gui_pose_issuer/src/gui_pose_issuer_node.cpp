@@ -1,33 +1,29 @@
 #include "gui_pose_issuer/gui_pose_issuer.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <QApplication>
-#include <thread>
+#include <QTimer>
 
 int main(int argc, char* argv[]) {
-  // Initialize ROS 2
-  rclcpp::init(argc, argv);
-
-  // Initialize Qt application
+  // Initialize Qt
   QApplication app(argc, argv);
 
-  // Create the GUI node
+  // Initialize ROS2 (after Qt, to avoid conflicts)
+  rclcpp::init(argc, argv);
   auto node = std::make_shared<gui_pose_issuer::GuiPoseIssuer>();
 
   RCLCPP_INFO(node->get_logger(), "Starting GUI pose issuer node...");
 
-  // Spin ROS 2 in a separate thread so it doesn't block Qt event loop
-  std::thread ros_spin_thread([&]() {
-    rclcpp::spin(node);
+  // Use a QTimer to spin ROS2 periodically without blocking the GUI
+  QTimer ros_timer;
+  QObject::connect(&ros_timer, &QTimer::timeout, [node]() {
+    rclcpp::spin_some(node);
   });
+  ros_timer.start(10);  // spin ROS every 10 ms
 
-  // Run the Qt event loop (this blocks until GUI is closed)
-  int ret = app.exec();
+  // Run Qt main event loop (this blocks, but ROS spins through QTimer)
+  int result = app.exec();
 
-  // When GUI closes, shutdown ROS
+  // Clean shutdown
   rclcpp::shutdown();
-
-  // Wait for ROS spin thread to finish
-  ros_spin_thread.join();
-
-  return ret;
+  return result;
 }

@@ -12,6 +12,7 @@
   <depend>rclcpp</depend>
   <depend>geometry_msgs</depend>
   <depend>qtbase5-dev</depend>
+  <depend>std_msgs</depend>
 
   <!-- Optional testing dependencies -->
   <!-- <test_depend>ament_lint_auto</test_depend>

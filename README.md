@@ -49,8 +49,8 @@ TODO: update with instructions later
 
 | Node | Publishes (topics) | Subscribes (topics) |
 | --- | --- | --- |
-| clock_pose_issuer | `/target_pose_clock` | |
+| clock_pose_issuer | `/target_pose_clock`, `/clock_mode_enabled` | |
 | gui_pose_issuer | `/target_pose_gui` | |
-| motion_controller | `/cmd_vel` | `/target_pose_clock`, `/target_pose_gui`, `/cur_pose` |
+| motion_controller | `/cmd_vel` | `/clock_mode_enabled`, `/target_pose_clock`, `/target_pose_gui`, `/cur_pose` |
 | turtlesim_pose_transformer | `/cur_pose` | `/turtle1/pose` |
 | turtlesim_velocity_transformer | `/turtle1/cmd_vel` | `/cmd_vel`, `/cur_pose` |

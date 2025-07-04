@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <functional>
+#include "std_msgs/msg/bool.hpp"
 
 #include "tf2/LinearMath/Matrix3x3.h"
 #include "tf2/LinearMath/Quaternion.h"
@@ -31,6 +32,15 @@ MotionController::MotionController() : Node("motion_controller") {
   // Initialize last GUI command time as zero time
   last_gui_pose_time_ = this->now() - rclcpp::Duration::from_seconds(1000.0);
   has_gui_pose_ = false;
+  clock_mode_enabled_ = true;
+  
+  // subscript to mode
+  clock_mode_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+    "/clock_mode_enabled", 10,
+    [this](const std_msgs::msg::Bool::SharedPtr msg) {
+      clock_mode_enabled_ = msg->data;
+    });
+
 }
 
 void MotionController::clock_pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
@@ -47,7 +57,8 @@ void MotionController::current_pose_callback(const geometry_msgs::msg::PoseStamp
   geometry_msgs::msg::PoseStamped target;
 
   // Check if GUI pose is recent enough (less than 30 seconds ago)
-  if (has_gui_pose_ && (this->now() - last_gui_pose_time_).seconds() < 30.0) {
+  if (!clock_mode_enabled_ && has_gui_pose_ &&
+      (this->now() - last_gui_pose_time_).seconds() < 30.0) {
     target = gui_pose_;
   } else {
     target = clock_pose_;
