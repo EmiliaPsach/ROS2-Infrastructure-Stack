@@ -24,13 +24,17 @@ This repository has the following packages in the `src` directory:
 
 ### Adding additional packages
 
-TODO: update with instructions later
+Adding additional C++ packages in this repository is very straightforward:
+1. Follow the existing structure of each package in this repo:
+    - **Required**: CMakeLists.txt, package.xml, .cpp source code
+    - **Optional; stylistic**: .hpp header, tests, separate node .cpp file
+1. Add node to the launch script (robot_launch_system.py)
 
 ## Package Specifications
 
 ### Package connectivity
 
-<img src="docs/images/packages_topics_connectivity_system_diagram.png" alt="ROS 2 Packages Connectivity Diagram" title="ROS 2 Packages Connectivity Diagram" width="400"/>
+<img src="docs/images/packages_topics_connectivity_system_diagram.png" alt="ROS 2 Packages Connectivity Diagram" title="ROS 2 Packages Connectivity Diagram" width="500"/>
 
 ### Coordinate Systems
 
