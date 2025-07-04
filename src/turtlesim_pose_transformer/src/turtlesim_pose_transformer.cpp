@@ -55,17 +55,4 @@ void TurtlesimPosePublisher::pose_callback(const turtlesim::msg::Pose::SharedPtr
   pose_pub_->publish(pose_msg);
 }
 
-/**
- * @brief Main function to initialize ROS, run the node, and clean up.
- */
-int main(int argc, char** argv) {
-  rclcpp::init(argc, argv);
-
-  // Create node and spin until shutdown
-  rclcpp::spin(std::make_shared<TurtlesimPosePublisher>());
-
-  rclcpp::shutdown();
-  return 0;
-}
-
 }  // namespace turtlesim_pose_transformer
