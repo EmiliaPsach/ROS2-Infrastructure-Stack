@@ -23,5 +23,5 @@ The [Foxy Ubuntu (deb packages)](https://docs.ros.org/en/foxy/Installation/Ubunt
 
 1. Install [Foxy Ubuntu (deb packages)](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
     - *Note*: ROS 2 Foxy requires Python v3.8. It is recommended to install ROS 2 using a virtual environment (`python3.8 -m venv ~/ros2_foxy_venv`) to avoid system conflicts
-        - *Note*: those Python pip installs often required the `--break-system-packages` flag 
+        - To instantly download everything required in this repository, just run `pip install -r requirements.txt` in your virtual environment
 1. Validation: ensure `ros2 --help` and `colcon --help` do not throw any errors.

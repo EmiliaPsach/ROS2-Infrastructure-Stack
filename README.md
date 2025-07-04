@@ -5,6 +5,7 @@ Robotics software infrastructure for a ROS2 test environment
 
 **Using the Packages**: [Building and Running Instructions](docs/building_and_running_instructions.md).
 
+**Testing and Formatting the Packages**: [Testing and Formatting Instructions](docs/testing_and_formatting_instructions.md).
 
 ## Packages list
 
