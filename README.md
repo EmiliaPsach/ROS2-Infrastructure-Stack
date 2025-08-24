@@ -5,7 +5,7 @@ Robotics software infrastructure for a ROS2 test environment
 
 [Emilia Psacharopoulos](https://github.com/EmiliaPsach)
 
-*Note*: At the time of completing this coding challenge, I gad recently bought a new Mac M4 and attempted to install ROS 2 on it. However, because Macs are not not super compatible with ROS 2 yet, I borrowed somebody else's Ubuntu laptop and forgot to sign in on their git, which is why all my commits are from "joshsilv".
+*Note*: At the time of completing this coding challenge, I had recently bought a new Mac M4 and attempted to install ROS 2 on it. However, because Macs are not not super compatible with ROS 2 yet, I borrowed somebody else's Ubuntu laptop and forgot to sign in on their git, which is why all my commits are from "joshsilv".
 
 ## Documentation suite
 
